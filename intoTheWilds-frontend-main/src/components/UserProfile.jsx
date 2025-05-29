@@ -246,7 +246,7 @@ const UserProfile = () => {
       <div className="w-full max-w-md mx-auto">
         <div className="bg-white shadow-xl rounded-xl overflow-hidden border border-[#0F2642]/10">
           {/* Navigation Header */}
-          <div className="bg-[#0F2642] px-4 py-3 flex items-center justify-between">
+          <div className="bg-[#0F2642] px-4 py-3 flex items-center  justify-between">
             <div className="flex items-center">
               <button
                 onClick={handleGoBack}

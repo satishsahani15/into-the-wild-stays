@@ -1,7 +1,9 @@
 {
   "name": "intothewilds-backend",
   "version": "1.0.0",
-  "engines": {"node": ">=20.x"},
+  "engines": {
+    "node": ">=20.x"
+  },
   "description": "",
   "main": "server.js",
   "scripts": {
@@ -15,7 +17,7 @@
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "dotenv": "^16.4.5",
-    "express": "^4.21.1",
+    "express": "^4.21.2",
     "express-rate-limit": "^7.4.1",
     "googleapis": "^144.0.0",
     "jsonwebtoken": "^9.0.2",

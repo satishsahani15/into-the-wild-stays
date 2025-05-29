@@ -373,7 +373,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className={`w-full z-50 bg-black transition-all font-ethereal duration-300 fixed ${visible ? 'top-0' : '-top-32'}`}>
+    <nav className={`w-full z-50 bg-black transition-all font-ethereal duration-300 ${visible ? 'top-0' : '-top-32'}`}>
       {/* Top contact info bar */}
       <div className="bg-[#0F2642] text-white text-sm sm:text-base">
         <div className="max-w-7xl mx-auto px-4 py-2 flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">

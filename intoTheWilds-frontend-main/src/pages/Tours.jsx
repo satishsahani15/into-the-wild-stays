@@ -41,9 +41,8 @@ const Tours = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.8, duration: 1 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white mb-4 sm:mb-6 lg:mb-8 leading-tight px-4"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 lg:mb-8 leading-tight px-4"
           >
-            {/* Unforgettable <br className="hidden sm:block"/> */}
             <span className="bg-gradient-to-r from-cyan-300 to-cyan-100 bg-clip-text text-transparent">
               Tours
             </span>
@@ -52,7 +51,7 @@ const Tours = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.2, duration: 1 }}
-            className="text-white sm:text-lg md:text-xl lg:text-2xl text-gray-200 max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-3xl mb-8 sm:mb-10 lg:mb-12 leading-relaxed px-4"
+            className="text-sm sm:text-lg md:text-xl lg:text-2xl text-gray-200 max-w-xs sm:max-w-lg md:max-w-2xl lg:max-w-3xl mb-8 sm:mb-10 lg:mb-12 leading-relaxed px-4"
           >
             Embark on extraordinary journeys that will create memories to last a
             lifetime
@@ -72,7 +71,7 @@ const Tours = () => {
               className="group bg-white/80 backdrop-blur-xl rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-500"
             >
               <div className="relative">
-                <div className="h-[400px] overflow-hidden">
+                <div className="h-[250px] sm:h-[300px] md:h-[400px] overflow-hidden">
                   <img
                     src={tour.imageUrl}
                     alt={tour.name}
@@ -80,11 +79,11 @@ const Tours = () => {
                   />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0F2642] via-[#0F2642]/60 to-transparent opacity-90" />
-                <div className="absolute bottom-0 p-8 w-full">
-                  <h3 className="text-3xl font-bold text-white mb-4">
+                <div className="absolute bottom-0 p-4 sm:p-6 md:p-8 w-full">
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-4">
                     {tour.name}
                   </h3>
-                  <div className="flex flex-wrap gap-6 text-gray-200">
+                  <div className="flex flex-wrap gap-4 sm:gap-6 text-sm sm:text-base text-gray-200">
                     <div className="flex items-center space-x-2">
                       <MapPin className="w-5 h-5" />
                       <span>{tour.location}</span>
@@ -99,16 +98,16 @@ const Tours = () => {
                   </div>
                 </div>
               </div>
-              <div className="p-6 flex justify-center gap-4">
+              <div className="p-6 flex flex-col sm:flex-row justify-center gap-4">
                 <button
                   onClick={() => navigateToTour(tour)}
-                  className="bg-[#0F2642] text-white px-8 py-3 rounded-full text-lg font-medium hover:bg-[#0F2642]/90 hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+                  className="w-full sm:w-auto bg-[#0F2642] text-white px-8 py-3 rounded-full text-base font-medium hover:bg-[#0F2642]/90 hover:shadow-lg transform hover:scale-105 transition-all duration-300"
                 >
                   Explore Details
                 </button>
                 <button
                   onClick={() => setIsContactModalOpen(true)}
-                  className="border-2 border-teal-500 text-teal-500 px-8 py-3 rounded-full text-lg font-medium hover:bg-teal-50 hover:shadow-lg transform hover:scale-105 transition-all duration-300"
+                  className="w-full sm:w-auto border-2 border-teal-500 text-teal-500 px-8 py-3 rounded-full text-base font-medium hover:bg-teal-50 hover:shadow-lg transform hover:scale-105 transition-all duration-300"
                 >
                   Talk to our Experts
                 </button>

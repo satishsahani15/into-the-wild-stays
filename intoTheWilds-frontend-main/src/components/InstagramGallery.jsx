@@ -458,11 +458,11 @@ const InstagramGallery = () => {
 
                   {/* Close Button */}
                   <motion.button
-                    whileHover={{ rotate: 90 }}
+                    whileHover={{ rotate: 0 }}
                     onClick={closeModal}
-                    className="absolute top-2 right-2 md:top-4 md:right-4 text-gray-600 hover:text-red-500"
+                    className="absolute top-2 left-0 md:top-4 md:right-4 text-gray-600 hover:text-red-500"
                   >
-                    <X size={20} md:size={24} />
+                    <X size={24} md:size={24} />
                   </motion.button>
                 </div>
               </motion.div>

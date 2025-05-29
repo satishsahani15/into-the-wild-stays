@@ -1,40 +1,35 @@
-import { useRef, useState } from "react";
-import {  Play, Pause, FastForward, Rewind } from "lucide-react";
+import { useRef, useState , useEffect} from "react";
+import { Volume2, VolumeX  } from "lucide-react";
 import { motion } from "framer-motion";
 import VideoTestimonial1 from "../assets/testimon-v-main1.mp4";
-
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-
 const Testimonials = () => {
   const videoRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
   const [progress, setProgress] = useState(0);
-
-  const toggleVideo = () => {
+  useEffect(() => {
     if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
+      videoRef.current.play();
     }
-  };
-
+  }, []);
   const handleTimeUpdate = () => {
     if (videoRef.current) {
       setProgress((videoRef.current.currentTime / videoRef.current.duration) * 100);
     }
   };
-
   const handleSeek = (time) => {
     if (videoRef.current) {
       videoRef.current.currentTime += time;
     }
   };
-
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !videoRef.current.muted;
+      setIsMuted(videoRef.current.muted);
+    }
+  };
   return (
     <div className="bg-gradient-to-r from-blue-100 via-cyan-100 to-emerald-100  px-8 rounded-3xl">
       <div className="max-w-7xl mx-auto">
@@ -49,7 +44,6 @@ const Testimonials = () => {
           </span>{" "}
           Experience
         </motion.h1>
-
         <div className="mt-32">
           <div className="max-w-5xl mx-auto relative rounded-[2rem] overflow-hidden shadow-2xl group">
             <video
@@ -57,8 +51,22 @@ const Testimonials = () => {
               className="w-full aspect-video object-cover"
               src={VideoTestimonial1}
               onTimeUpdate={handleTimeUpdate}
+              autoPlay
+              muted
+              playsInline
             />
-            <div
+            {/* Mute/Unmute Button */}
+            <button
+              onClick={toggleMute}
+              className="absolute top-6 right-6 z-10 bg-black/50 text-white p-3 rounded-full hover:bg-black/70 transition"
+            >
+              {isMuted ? (
+                <VolumeX className="w-2 h-2" />
+              ) : (
+                <Volume2 className="w-2 h-2" />
+              )}
+            </button>
+            {/* <div
               className="absolute inset-0 flex items-center justify-center cursor-pointer bg-black/20 group-hover:bg-black/30 transition-all duration-500"
               onClick={toggleVideo}
             >
@@ -73,12 +81,12 @@ const Testimonials = () => {
                   <Play className="w-12 h-12 text-white ml-2" />
                 )}
               </div>
-            </div>
-            <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/90 to-transparent">
+            </div> */}
+            {/* <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/90 to-transparent">
               <div className="flex items-center justify-between">
                 <button onClick={() => handleSeek(-10)} className="text-white">-10s</button>
                 <button onClick={() => handleSeek(-30)} className="text-white"><Rewind className="w-6 h-6" /></button> {/* Rewind button */}
-                <input
+                {/* <input
                   type="range"
                   value={progress}
                   onChange={(e) => {
@@ -86,16 +94,15 @@ const Testimonials = () => {
                     videoRef.current.currentTime = newTime;
                   }}
                   className="w-full mx-4"
-                />
-                <button onClick={() => handleSeek(30)} className="text-white"><FastForward className="w-6 h-6" /></button> {/* Fast forward button */}
-                <button onClick={() => handleSeek(10)} className="text-white">+10s</button>
+                /> */}
+                {/* <button onClick={() => handleSeek(30)} className="text-white"><FastForward className="w-6 h-6" /></button> {/* Fast forward button */}
+                {/* <button onClick={() => handleSeek(10)} className="text-white">+10s</button>
               </div>
-            </div>
+            </div>  */}
           </div>
         </div>
       </div>
     </div>
   );
 };
-
 export default Testimonials;

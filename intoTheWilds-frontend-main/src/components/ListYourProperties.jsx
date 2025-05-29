@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence} from 'framer-motion';
 import { X } from 'lucide-react';
 import { useState } from 'react';
 import heroImage4 from "../assets/banner/b4.jpeg";
@@ -108,234 +108,218 @@ icon: "🏠",
 ];
 
 return (
-<motion.div
-initial={{ opacity: 0 }}
-animate={{ opacity: 1 }}
-exit={{ opacity: 0 }}
-className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
->
-<motion.div
-initial={{ scale: 0.9, opacity: 0 }}
-animate={{ scale: 1, opacity: 1 }}
-exit={{ scale: 0.9, opacity: 0 }}
-className="bg-white max-w-2xl w-full overflow-hidden shadow-2xl"
->
-{/* Header */}
-<div className="bg-gradient-to-r from-[#0F2642] to-[#1a3b66] p-6 relative border-0">
-<button
-onClick={onClose}
-className="absolute right-4 top-4 text-white hover:bg-white/20 p-1 transition-colors"
-aria-label="Close"
->
-<X className="w-6 h-6" />
-</button>
-<h2 className="text-3xl font-bold text-white mb-2">
-List Your Property
-</h2>
-<p className="text-white/80">
-Join our network of exclusive properties
-</p>
-
-{/* Progress Steps */}
-<div className="flex justify-between mt-6 relative px-6 border-4 border-red-500">
-  {/* Line Behind Icons */}
-  <div className="absolute top-5 left-0 right-0 h-0.5 bg-white/30 z-0">
-    <div
-      className="h-full bg-green-500 transition-all duration-500"
-      style={{
-        width: `calc(${((currentStep - 1) / (steps.length - 1)) * 100}%)`,
-      }}
-    />
-  </div>
-
-  {/* Step Icons */}
-  {steps.map((step, index) => (
-    <div key={index} className="flex flex-col items-center z-10 -mx-1">
-      <div
-        className={`w-12 h-12 flex items-center justify-center text-xl border-2 border-white
-          ${
-            currentStep > index
-              ? "bg-green-500"
-              : currentStep === index + 1
-              ? "bg-yellow-400"
-              : "bg-white/30"
-          } transition-all duration-300
-          ${index === 0 ? "rounded-l-full" : ""}
-          ${index === steps.length - 1 ? "rounded-r-full" : ""}
-        `}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
+    >
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        className="bg-[#0F2642] rounded-2xl max-w-2xl w-full overflow-hidden shadow-2xl border border-yellow-500/30"
       >
-        {step.icon}
-      </div>
-      <span className="text-white/90 text-sm mt-2 text-center w-24">
-        {step.title}
-      </span>
-    </div>
-  ))}
-</div>
+ 
+ <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+  <div className="relative bg-gray-800 rounded-xl shadow-lg w-full max-w-md mx-4 p-6">
+    {/* Close button in top right corner */}
+    <button
+      onClick={onClose}
+      className="absolute right-0 top-4 text-white hover:text-yellow-300 bg-transparent rounded-full  transition-colors"
+      aria-label="Close modal"
+    >
+      <X className="w-6 h-6" />
+    </button>
 
-<div>
-{/* Progress Line */}
-<div className="absolute top-5 left-0 h-0.5 bg-white/30 w-full -z-0">
-<div
-className="h-full bg-green-500 transition-all duration-500"
-style={{
-  width: `${((currentStep - 1) / (steps.length - 1)) * 100}%`,
-}}
+    <h2 className="text-3xl font-bold text-white mb-2 text-center">
+      List Your Property
+    </h2>
+    <p className="text-gray-300 text-center">
+      Join our network of exclusive properties
+    </p>
 
-/>
-</div>
-</div>
-</div>
 
-{/* Form Content */}
-<form onSubmit={handleSubmit} className="p-6 space-y-6">
-{currentStep === 1 && (
-<motion.div
-key="step1"
-initial={{ x: 20, opacity: 0 }}
-animate={{ x: 0, opacity: 1 }}
-exit={{ x: -20, opacity: 0 }}
-className="space-y-4"
->
-<div>
-<label className="block text-sm font-medium text-gray-700 mb-1">
-Full Name
-</label>
-<input
-type="text"
-name="name"
-value={formData.name}
-onChange={(e) => {
-const value = e.target.value;
-// Allow only letters and spaces
-if (/^[a-zA-Z\s]*$/.test(value)) {
-handleInputChange(e);
-}
-}}
-className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#0F2642] focus:border-transparent transition-all"
-placeholder="Enter your full name"
-required
-/>
-</div>
-</motion.div>
-)}
+          {/* Progress Steps */}
+          <div className="flex justify-between mt-6 relative">
+            {steps.map((step, index) => (
+              <div key={index} className="flex flex-col items-center z-10">
+                <div
+                  className={`w-12 h-12 rounded-full flex items-center justify-center text-xl
+                  ${
+                    currentStep > index + 1
+                      ? "bg-green-500 text-white"
+                      : currentStep === index + 1
+                      ? "bg-yellow-500 text-[#0F2642]"
+                      : "bg-gray-700 text-gray-300"
+                  }
+                  transition-all duration-300 shadow-md`}
+                >
+                  {step.icon}
+                </div>
+                <span className={`text-sm mt-2 font-medium ${
+                  currentStep === index + 1 ? "text-yellow-500" : "text-gray-300"
+                }`}>{step.title}</span>
+              </div>
+            ))}
+            {/* Progress Line */}
+            <div className="absolute top-6 left-9 h-1 bg-gray-700 w-[300px] -z-0">
+              <div
+                className="h-full bg-yellow-500 transition-all duration-500"
+                style={{
+                  width: `${((currentStep - 1) / (steps.length - 1)) * 100}%`,
+                }}
+              />
+            </div>
+          </div>
+         
+        {/* </div> */}
 
-{currentStep === 2 && (
-<motion.div
-key="step2"
-initial={{ x: 20, opacity: 0 }}
-animate={{ x: 0, opacity: 1 }}
-exit={{ x: -20, opacity: 0 }}
-className="space-y-4"
->
-<div>
-<label className="block text-sm font-medium text-gray-700 mb-1">
-Email Address
-</label>
-<input
-type="email"
-name="email"
-value={formData.email}
-onChange={handleInputChange}
-className={`w-full px-4 py-3 rounded-lg border ${
-errors.email ? "border-red-500" : "border-gray-300"
-} focus:ring-2 focus:ring-[#0F2642] focus:border-transparent transition-all`}
-placeholder="Enter your email address"
-required
-/>
-{errors.email && (
-<p className="mt-1 text-sm text-red-500">{errors.email}</p>
-)}
-</div>
-<div>
-<label className="block text-sm font-medium text-gray-700 mb-1">
-Phone Number
-</label>
-<input
-type="tel"
-name="phone"
-value={formData.phone}
-onChange={handleInputChange}
-className={`w-full px-4 py-3 rounded-lg border ${
-errors.phone ? "border-red-500" : "border-gray-300"
-} focus:ring-2 focus:ring-[#0F2642] focus:border-transparent transition-all`}
-placeholder="Enter your phone number"
-required
-/>
-{errors.phone && (
-<p className="mt-1 text-sm text-red-500">{errors.phone}</p>
-)}
-</div>
-</motion.div>
-)}
+        {/* Form Content */}
+        <form onSubmit={handleSubmit} className="p-6 space-y-6">
+          <AnimatePresence mode="wait">
+            {currentStep === 1 && (
+              <motion.div
+                key="step1"
+                initial={{ x: 20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: -20, opacity: 0 }}
+                className="space-y-4"
+              >
+                <div>
+                  <label className="block text-sm font-medium text-yellow-400 mb-1">
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      // Allow only letters and spaces
+                      if (/^[a-zA-Z\s]*$/.test(value)) {
+                        handleInputChange(e);
+                      }
+                    }}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-600 bg-gray-800 text-white focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all"
+                    placeholder="Enter your full name"
+                    required
+                  />
+                </div>
+              </motion.div>
+            )}
 
-{currentStep === 3 && (
-<motion.div
-key="step3"
-initial={{ x: 20, opacity: 0 }}
-animate={{ x: 0, opacity: 1 }}
-exit={{ x: -20, opacity: 0 }}
-className="space-y-4"
->
-<div>
-<label className="block text-sm font-medium text-gray-700 mb-1">
-Property Details
-</label>
-<textarea
-name="message"
-value={formData.message}
-onChange={handleInputChange}
-rows="4"
-className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#0F2642] focus:border-transparent transition-all"
-placeholder="Tell us about your property..."
-required
-></textarea>
-</div>
-</motion.div>
-)}
+            {currentStep === 2 && (
+              <motion.div
+                key="step2"
+                initial={{ x: 20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: -20, opacity: 0 }}
+                className="space-y-4"
+              >
+                <div>
+                  <label className="block text-sm font-medium text-yellow-400 mb-1">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className={`w-full px-4 py-3 rounded-lg border ${
+                      errors.email ? "border-red-500" : "border-gray-600"
+                    } bg-gray-800 text-white focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all`}
+                    placeholder="Enter your email address"
+                    required
+                  />
+                  {errors.email && (
+                    <p className="mt-1 text-sm text-red-400">{errors.email}</p>
+                  )}
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-yellow-400 mb-1">
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className={`w-full px-4 py-3 rounded-lg border ${
+                      errors.phone ? "border-red-500" : "border-gray-600"
+                    } bg-gray-800 text-white focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all`}
+                    placeholder="Enter your phone number"
+                    required
+                  />
+                  {errors.phone && (
+                    <p className="mt-1 text-sm text-red-400">{errors.phone}</p>
+                  )}
+                </div>
+              </motion.div>
+            )}
 
-<div className="flex gap-4 justify-between pt-4">
-{currentStep > 1 && (
-<button
-type="button"
-onClick={() => setCurrentStep((curr) => curr - 1)}
-className="px-6 py-2 text-[#0F2642] border-2 border-[#0F2642] rounded-lg hover:bg-gray-50 transition-colors"
->
-Previous
-</button>
-)}
-{currentStep < 3 ? (
-<button
-type="submit"
-className="ml-auto px-6 py-2 bg-[#0F2642] text-white rounded-lg hover:bg-[#0F2642]/90 transition-colors"
->
-Next
-</button>
-) : (
-<button
-type="submit"
-disabled={isSubmitting}
-className="ml-auto px-6 py-2 bg-[#0F2642] text-white rounded-lg hover:bg-[#0F2642]/90 transition-colors flex items-center"
->
-{isSubmitting ? "Submitting..." : "Submit Property"}
-</button>
-)}
-</div>
+            {currentStep === 3 && (
+              <motion.div
+                key="step3"
+                initial={{ x: 20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: -20, opacity: 0 }}
+                className="space-y-4"
+              >
+                <div>
+                  <label className="block text-sm font-medium text-yellow-400 mb-1">
+                    Property Details
+                  </label>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    rows="4"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-600 bg-gray-800 text-white focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all"
+                    placeholder="Tell us about your property..."
+                    required
+                  ></textarea>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-{success && (
-<motion.div
-initial={{ opacity: 0, y: 10 }}
-animate={{ opacity: 1, y: 0 }}
-className="text-center text-green-600 bg-green-50 p-4 rounded-lg"
->
-Your property has been submitted successfully! We'll contact you
-soon.
-</motion.div>
-)}
-</form>
-</motion.div>
-</motion.div>
-);
+          <div className="flex gap-4 justify-between pt-4">
+            {currentStep > 1 && (
+              <button
+                type="button"
+                onClick={() => setCurrentStep((curr) => curr - 1)}
+                className="px-6 py-2 text-white border border-gray-500 rounded-lg hover:bg-gray-700 transition-colors"
+              >
+                Previous
+              </button>
+            )}
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className={`${currentStep === 1 ? "ml-auto" : ""} px-6 py-2 bg-yellow-500 text-[#0F2642] font-bold rounded-lg hover:bg-yellow-400 transition-colors flex items-center`}
+            >
+              {currentStep < 3 ? "Next" : isSubmitting ? "Submitting..." : "Submit Property"}
+              {currentStep === 3 && <Send className="w-4 h-4 ml-2" />}
+            </button>
+          </div>
+
+          {success && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-center text-green-500 bg-green-900/50 p-4 rounded-lg border border-green-500/30"
+            >
+              Your property has been submitted successfully! We'll contact you
+              soon.
+            </motion.div>
+          )}
+        </form>
+        </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
 };
 
 const ListYourProperties = () => {

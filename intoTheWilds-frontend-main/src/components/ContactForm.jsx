@@ -90,9 +90,9 @@ const ContactForm = ({ isOpen, onClose, isTour }) => {
         >
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 z-10 bg-white/80 p-2 rounded-full hover:bg-white hover:scale-110 transition-all duration-300"
+            className="absolute right-0 top-0 text-white hover:bg-white/20 p-1 transition-colors border-none bg-gradient-to-br"
           >
-            <X className="w-6 h-6 text-gray-700" />
+            <X className="w-7 h-7 text-gray-400" />
           </button>
 
           <div className="p-8 md:p-12">
